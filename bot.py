@@ -1,11 +1,18 @@
 import os
 import logging
+import sentry_sdk
 from dotenv import load_dotenv
 from anthropic import Anthropic
 
 load_dotenv()
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+
+_sentry_dsn = os.getenv("SENTRY_DSN")
+sentry_sdk.init(
+    dsn=_sentry_dsn,
+    traces_sample_rate=1.0,
+)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -40,7 +47,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         "*Comandes disponibles:*\n"
         "/start — Inicia o reinicia la conversa\n"
         "/nou — Esborra l'historial i comença de nou\n"
-        "/ajuda — Mostra aquest missatge",
+        "/ajuda — Mostra aquest missatge\n"
+        "/seer — Mostra l'estat de la monitorització d'errors (Sentry)",
         parse_mode="Markdown",
     )
 
@@ -48,6 +56,15 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 async def new_conversation(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     conversations.pop(update.effective_user.id, None)
     await update.message.reply_text("Conversa reiniciada. Escriu el teu primer missatge.")
+
+
+async def seer_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if _sentry_dsn:
+        sentry_sdk.capture_message("Sentry test event from /seer command", level="info")
+        status = "Sentry esta actiu i monitoritzant errors."
+    else:
+        status = "Sentry no esta configurat (SENTRY_DSN no definit)."
+    await update.message.reply_text(f"*Estat de monitoritzacio:*\n{status}", parse_mode="Markdown")
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -74,6 +91,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         )
         reply = response.content[0].text
     except Exception as e:
+        sentry_sdk.capture_exception(e)
         logger.error("Anthropic API error: %s", e)
         reply = "Ha ocorregut un error en processar la teva petició. Torna-ho a intentar."
 
@@ -89,6 +107,7 @@ def main() -> None:
     app.add_handler(CommandHandler("ajuda", help_command))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("nou", new_conversation))
+    app.add_handler(CommandHandler("seer", seer_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     logger.info("Bot en marxa...")
