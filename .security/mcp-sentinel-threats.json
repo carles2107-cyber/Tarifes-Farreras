@@ -1,6 +1,6 @@
 {
-  "last_scan": "2026-06-13T11:10:00Z",
-  "scan_count": 1,
+  "last_scan": "2026-06-13T11:19:00Z",
+  "scan_count": 2,
   "inventory": [
     {
       "name": "mcp-sentinel",
@@ -66,7 +66,65 @@
       "change_history": []
     }
   ],
-  "mcp_servers": [],
+  "mcp_servers": [
+    {
+      "name": "supermemory-mcp",
+      "type": "mcp_server",
+      "source": "github.com/supermemoryai/supermemory (apps/mcp)",
+      "endpoint": "https://mcp.supermemory.ai/mcp",
+      "installer": "npx install-mcp@latest (github.com/supermemoryai/install-mcp)",
+      "version": "latest",
+      "auth": "OAuth 2.0",
+      "scope": "project",
+      "first_seen": "2026-06-13",
+      "status": "pre-install-check: clean",
+      "tools_exposed": ["memory", "recall", "whoAmI"],
+      "external_domains": ["api.supermemory.ai", "posthog.com (optional analytics)"],
+      "findings": [
+        {
+          "id": "sm-obs-001",
+          "severity": "info",
+          "type": "privacy",
+          "summary": "Memories are stored on Supermemory's cloud servers (api.supermemory.ai)",
+          "detail": "This is by design — cross-session persistence requires cloud storage. Any content you ask the AI to remember is transmitted to and stored on Supermemory's infrastructure. Do not store highly sensitive secrets via this tool.",
+          "recommendation": "Be mindful of what data you ask the AI to remember. Self-hosting is possible if you supply your own SUPERMEMORY_API_KEY."
+        },
+        {
+          "id": "sm-obs-002",
+          "severity": "info",
+          "type": "telemetry",
+          "summary": "Optional PostHog analytics telemetry",
+          "detail": "The server includes PostHog integration (controlled via POSTHOG_API_KEY env var server-side). Usage analytics may be sent to PostHog from the server side.",
+          "recommendation": "No action needed from client side. This is a server-side configuration by supermemory.ai."
+        },
+        {
+          "id": "sm-obs-003",
+          "severity": "info",
+          "type": "data_access",
+          "summary": "whoAmI tool discloses user identity to the AI",
+          "detail": "The whoAmI tool returns user ID, email, name, client, and session info — data obtained during OAuth authentication. This is used for memory personalization.",
+          "recommendation": "Expected behavior for a personalized memory service."
+        }
+      ],
+      "coherence_verdict": {
+        "stated_purpose": "Persistent AI memory across LLM sessions via cloud storage and OAuth authentication",
+        "consistent_actions": [
+          "memory tool — stores/removes conversation memories",
+          "recall tool — retrieves stored memories via semantic search",
+          "whoAmI tool — identifies user for memory personalization",
+          "OAuth auth against api.supermemory.ai — required for per-user memory isolation",
+          "Cloud storage on api.supermemory.ai — required for cross-session persistence"
+        ],
+        "incoherent_actions": [],
+        "suspicious_actions": [
+          "PostHog telemetry (server-side) — not harmful but adds a third-party data recipient"
+        ]
+      },
+      "no_cves_found": true,
+      "community_reports": "None found",
+      "verdict": "CLEAN — safe to install with privacy awareness"
+    }
+  ],
   "known_threats": [],
   "community_alerts": [
     {
