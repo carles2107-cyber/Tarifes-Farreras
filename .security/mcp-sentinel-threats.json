@@ -1,0 +1,89 @@
+{
+  "last_scan": "2026-06-13T11:10:00Z",
+  "scan_count": 1,
+  "inventory": [
+    {
+      "name": "mcp-sentinel",
+      "type": "skill",
+      "source": "github.com/soy-rafa/claude-mcp-sentinel",
+      "version": "2.0.0",
+      "scope": "project",
+      "install_path": ".claude/skills/mcp-sentinel",
+      "runtime_hook_active": true,
+      "first_seen": "2026-06-13",
+      "status": "clean",
+      "findings": [
+        {
+          "id": "sentinel-obs-001",
+          "severity": "low",
+          "type": "observation",
+          "summary": "Hook registered with relative path — fails silently if CWD differs from project root",
+          "detail": "settings.json registers the hook as `python3 \".claude/skills/mcp-sentinel/hooks/sentinel_preflight.py\"`. If Claude Code is invoked from a directory other than the project root, Python will not resolve this relative path and the hook will fail-open (allow all). No security gap in normal usage; protection silently disappears if the CWD assumption breaks.",
+          "recommendation": "Consider using an absolute path in settings.json if portability is needed."
+        },
+        {
+          "id": "sentinel-obs-002",
+          "severity": "info",
+          "type": "observation",
+          "summary": "IOC database is ~2 months old (last_updated: 2026-04-17)",
+          "detail": "New known-malicious domains or dangerous patterns discovered since April 2026 are not covered. The bundled iocs.json relies on manual updates from the project maintainer.",
+          "recommendation": "Re-run Sentinel periodically and check for updates to claude-mcp-sentinel."
+        }
+      ],
+      "snapshots": {
+        "SKILL.md": {
+          "hash": "first-scan-no-baseline",
+          "last_scanned": "2026-06-13T11:10:00Z"
+        },
+        "hooks/sentinel_preflight.py": {
+          "hash": "first-scan-no-baseline",
+          "last_scanned": "2026-06-13T11:10:00Z"
+        },
+        "references/iocs.json": {
+          "hash": "first-scan-no-baseline",
+          "last_scanned": "2026-06-13T11:10:00Z"
+        }
+      },
+      "change_history": []
+    },
+    {
+      "name": "session-start-hook",
+      "type": "skill",
+      "source": "built-in (Anthropic / Claude Code on the web)",
+      "version": "unknown",
+      "scope": "global",
+      "install_path": "~/.claude/skills/session-start-hook",
+      "runtime_hook_active": false,
+      "first_seen": "2026-06-13",
+      "status": "clean",
+      "findings": [],
+      "snapshots": {
+        "SKILL.md": {
+          "hash": "first-scan-no-baseline",
+          "last_scanned": "2026-06-13T11:10:00Z"
+        }
+      },
+      "change_history": []
+    }
+  ],
+  "mcp_servers": [],
+  "known_threats": [],
+  "community_alerts": [
+    {
+      "source": "github_advisory",
+      "url": "https://research.checkpoint.com/2026/rce-and-api-token-exfiltration-through-claude-code-project-files-cve-2025-59536/",
+      "summary": "CVE-2025-59536 / CVE-2026-21852: Claude Code itself vulnerable to RCE and API key exfiltration via malicious project settings files (hooks + ANTHROPIC_BASE_URL override). Not specific to any skill — affects the Claude Code platform. Patched by Anthropic.",
+      "date": "2026-02-01",
+      "relevance": "general",
+      "affects_installed": false
+    },
+    {
+      "source": "check_point_research",
+      "url": "https://research.checkpoint.com/2026/rce-and-api-token-exfiltration-through-claude-code-project-files-cve-2025-59536/",
+      "summary": "Attackers can inject malicious hooks via .claude/settings.json in a cloned repo, executing commands before the user confirms trust. Sentinel's runtime hook is itself registered in this file — underscoring the importance of only installing skills from trusted sources.",
+      "date": "2026-02-01",
+      "relevance": "general",
+      "affects_installed": false
+    }
+  ]
+}
