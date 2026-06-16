@@ -1,0 +1,5 @@
+{
+  "paths": ["src/lib/hubspot.ts", "src/app/api", "process.env", "SETUP.md"],
+  "domains": [],
+  "commands": []
+}
