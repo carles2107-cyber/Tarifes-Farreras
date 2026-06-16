@@ -8,15 +8,17 @@ import {
   Users,
   UserCog,
   TrendingUp,
+  Target,
   Settings,
 } from "lucide-react";
 import clsx from "clsx";
 
 const NAV = [
-  { href: "/",         icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/pipeline", icon: Kanban,           label: "Pipeline" },
-  { href: "/clients",  icon: Users,            label: "Clients" },
-  { href: "/team",     icon: UserCog,          label: "Equip" },
+  { href: "/",           icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/objectius",  icon: Target,          label: "Objectius" },
+  { href: "/pipeline",   icon: Kanban,          label: "Pipeline" },
+  { href: "/clients",    icon: Users,           label: "Clients" },
+  { href: "/team",       icon: UserCog,         label: "Equip" },
 ];
 
 export default function Sidebar() {
