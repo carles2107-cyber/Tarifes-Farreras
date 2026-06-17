@@ -1,0 +1,77 @@
+[
+  {
+    "source": "Interempresas - Madera",
+    "category": "madera",
+    "url": "https://www.interempresas.net/rss/Madera.xml"
+  },
+  {
+    "source": "AIDIMME",
+    "category": "madera",
+    "url": "https://www.aidimme.es/feed/"
+  },
+  {
+    "source": "Holzindustrie",
+    "category": "madera",
+    "url": "https://www.holzindustrie.com/feed/"
+  },
+  {
+    "source": "Woodworking Network",
+    "category": "madera",
+    "url": "https://www.woodworkingnetwork.com/rss.xml"
+  },
+  {
+    "source": "Interempresas - Mueble Hogar y Cocina",
+    "category": "muebles_cocina",
+    "url": "https://www.interempresas.net/rss/Mueble.xml"
+  },
+  {
+    "source": "Mueble News",
+    "category": "muebles_cocina",
+    "url": "https://muebleNews.com/feed/"
+  },
+  {
+    "source": "Cosentino News",
+    "category": "muebles_cocina",
+    "url": "https://www.cosentino.com/en-int/news/feed/"
+  },
+  {
+    "source": "Kitchen & Bath Design News",
+    "category": "muebles_cocina",
+    "url": "https://www.kitchenbathdesign.com/rss.xml"
+  },
+  {
+    "source": "Furniture Today",
+    "category": "muebles_hogar",
+    "url": "https://www.furnituretoday.com/feed/"
+  },
+  {
+    "source": "FederLegno Arredo",
+    "category": "muebles_hogar",
+    "url": "https://www.federlegnoarredo.it/it/feed"
+  },
+  {
+    "source": "Made for Trade",
+    "category": "muebles_hogar",
+    "url": "https://www.madefortrade.co/feed/"
+  },
+  {
+    "source": "Interempresas - Mobiliario y Decoracion",
+    "category": "muebles_hogar",
+    "url": "https://www.interempresas.net/rss/Mobiliario_y_decoracion.xml"
+  },
+  {
+    "source": "FIMMA Maderalia",
+    "category": "ferias_maquinaria",
+    "url": "https://www.fimmamaderalia.feriavalencia.com/feed/"
+  },
+  {
+    "source": "Interempresas - Maquinaria para Madera",
+    "category": "ferias_maquinaria",
+    "url": "https://www.interempresas.net/rss/Maquinaria_para_madera_y_derivados.xml"
+  },
+  {
+    "source": "Ligna (Deutsche Messe)",
+    "category": "ferias_maquinaria",
+    "url": "https://www.ligna.de/en/rss-news.xml"
+  }
+]
