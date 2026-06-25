@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Noticias Madera y Mueble",
+    "slug": "noticias-madera-mueble",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tarifesfarreras.noticiasmaderamueble"
+    },
+    "android": {
+      "package": "com.tarifesfarreras.noticiasmaderamueble",
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
